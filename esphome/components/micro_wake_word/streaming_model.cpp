@@ -265,7 +265,7 @@ DetectionEvent VADModel::determine_detected() {
   return detection_event;
 }
 
-bool StreamingModel::register_streaming_ops_(tflite::MicroMutableOpResolver<20> &op_resolver) {
+bool StreamingModel::register_streaming_ops_(tflite::MicroMutableOpResolver<21> &op_resolver) {
   if (op_resolver.AddCallOnce() != kTfLiteOk)
     return false;
   if (op_resolver.AddVarHandle() != kTfLiteOk)
@@ -305,6 +305,8 @@ bool StreamingModel::register_streaming_ops_(tflite::MicroMutableOpResolver<20> 
   if (op_resolver.AddPack() != kTfLiteOk)
     return false;
   if (op_resolver.AddSplitV() != kTfLiteOk)
+    return false;
+  if (op_resolver.AddExpandDims() != kTfLiteOk)
     return false;
 
   return true;
