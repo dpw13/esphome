@@ -195,8 +195,8 @@ void VoiceAssistant::loop() {
   }
   switch (this->state_) {
     case State::IDLE: {
+      this->idle_trigger_->trigger();
       if (this->continuous_ && this->desired_state_ == State::IDLE) {
-        this->idle_trigger_->trigger();
         this->set_state_(State::START_MICROPHONE, State::START_PIPELINE);
       } else {
         this->deallocate_buffers_();
